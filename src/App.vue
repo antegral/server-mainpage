@@ -2,17 +2,50 @@
   <div id="app">
     <div class="bg">
       <div class="bg-text">
-        <p id="original-bg-text-1" style="font-family: 'Exo-Light'">
-          Student Developer
-        </p>
+        <div id="original-bg-text-1">
+          <p
+            class="head-text-animated"
+            style="font-size: 2.3rem; font-famrily: 'Exo-Light'"
+          >
+            Student Developer.
+          </p>
+          <p
+            style="
+              margin-top: -0.9em;
+              font-size: 3rem;
+              font-family: 'Exo-Regular';
+            "
+          >
+            ANTEGRAL
+          </p>
+        </div>
         <!-- Moblie Only Text -->
-        <p id="instead-bg-text-1" style="font-family: 'Exo-Light'">
-          Student Developer
-        </p>
-        <p style="margin-top: -1.1em; font-family: 'Exo-Regular'">ANTEGRAL</p>
+        <div id="instead-bg-text-1">
+          <p style="font-size: 1.5rem; font-family: 'Exo-Light'">
+            Student Developer
+          </p>
+          <p
+            style="
+              margin-top: -0.75em;
+              font-size: 2.2rem;
+              font-family: 'Exo-Regular';
+            "
+          >
+            ANTEGRAL
+          </p>
+          <p
+            style="
+              margin-top: -0.75em;
+              font-size: 1rem;
+              font-family: 'Exo-Light';
+            "
+          >
+            아직 모바일은 지원하지 않아요!<br />조금만 더 기다려주세요!
+          </p>
+        </div>
       </div>
     </div>
-    <div class="projects">
+    <div class="projects" id="pcOnly">
       <el-row>
         <el-col :span="4" id="pcOnly"
           ><div class="grid-content bg-purple">.</div></el-col
@@ -54,7 +87,7 @@
         ></el-col>
       </el-row>
     </div>
-    <div class="servers">
+    <div class="servers" id="pcOnly">
       <el-row>
         <el-col :span="4" id="pcOnly"
           ><div class="grid-content bg-purple">.</div></el-col
@@ -74,19 +107,34 @@
             element-loading-text="현재 지원하지 않는 기능입니다. 조금만 더 기다려주세요..!"
             element-loading-background="rgba(0, 0, 0, 0.15)"
           ></div>
+          <br />
         </el-col>
         <el-col id="pcOnly" :span="4"
           ><div class="grid-content bg-purple"></div
         ></el-col>
       </el-row>
     </div>
-    <div class="footer"></div>
+    <div class="footer">
+      <p id="footer-copyright-text">
+        Copyright {{ new Date().getFullYear() }}, Antegral, All rights
+        reserved.<br />and, Thanks to all! ✨
+      </p>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "app",
+  data() {
+    return {
+      headText: "JavaScript",
+    };
+  },
+  computed: {
+    changeHeadText: () => {},
+  },
+  mounted() {},
 };
 </script>
 
@@ -103,6 +151,10 @@ body {
   margin: 0;
 }
 
+#footer-copyright-text {
+  color: rgb(150, 150, 150);
+}
+
 #projects-header-text-1 {
   font-size: 2rem;
 }
@@ -114,6 +166,7 @@ body {
 
 .servers {
   background-color: rgb(250, 250, 250);
+  padding-bottom: 1rem;
 }
 
 .servers-header {
@@ -122,6 +175,37 @@ body {
 
 .projects {
   margin-bottom: 3rem;
+}
+
+.head-text-animated {
+  border-right: solid 1.7px rgba(255, 255, 255, 0.75);
+  white-space: nowrap;
+  overflow: hidden;
+  font-family: "Exo-Light";
+  color: rgb(255, 255, 255);
+}
+
+.head-text-animated {
+  animation: animated-text 1s steps(20, end) 1s 1 normal both,
+    animated-cursor 600ms steps(20, end) infinite;
+}
+
+@keyframes animated-text {
+  from {
+    width: 0;
+  }
+  to {
+    width: 20rem;
+  }
+}
+
+@keyframes animated-cursor {
+  from {
+    border-right-color: rgba(236, 236, 236, 0.75);
+  }
+  to {
+    border-right-color: transparent;
+  }
 }
 
 // Not Available Only
@@ -133,7 +217,7 @@ body {
 // Not Available Only
 .servers-body {
   padding-bottom: 50%;
-  background-color: rgb(245, 245, 245);
+  background-color: rgb(247, 247, 247);
 }
 
 .projects-menu {
@@ -155,15 +239,9 @@ body {
   padding-top: 3%;
 }
 
-.footer {
-  background-color: rgb(245, 245, 245);
-  padding-top: 3%;
-  margin-top: 3%;
-}
-
 .bg {
   /* The image used */
-  background-image: url("./assets/temp_logo.jpg");
+  background-image: url("./assets/main.png");
 
   /* Full height */
   height: 100vh;
@@ -175,24 +253,36 @@ body {
 }
 
 // PC
-@media screen and (min-width: 1241px) {
+@media screen and (min-width: 1024px) {
+  #footer-copyright-text {
+    padding-left: 3rem;
+  }
+
   #instead-bg-text-1 {
     display: none;
   }
 
   #original-bg-text-1 {
     display: block;
+  }
+
+  .footer {
+    background-color: rgb(245, 245, 245);
+    margin-top: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.4rem;
   }
 }
 
 // Moblie
-@media screen and (max-width: 1240px) {
+@media screen and (max-width: 1023px) {
   #pcOnly {
     display: none;
   }
 
-  .bg-text {
-    font-size: 2em;
+  #footer-copyright-text {
+    padding-left: 1rem;
+    font-size: 0.5rem;
   }
 
   #original-bg-text-1 {
@@ -201,6 +291,13 @@ body {
 
   #instead-bg-text-1 {
     display: block;
+  }
+
+  .footer {
+    background-color: rgb(245, 245, 245);
+    margin-top: 0rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.4rem;
   }
 }
 /* #app {
